@@ -44,6 +44,8 @@ curl --location --request POST 'https://titanic-survival-model-api.herokuapp.com
 
 The response is [1] for a positive result (survived) and [0] for a negative (not surived).
 
+The project also contains the file **serviceCaller.py** which is also used to make a request to the service.
+
 **All fields are mandatory**
 
 ## Installation
