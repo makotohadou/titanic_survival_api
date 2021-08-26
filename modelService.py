@@ -32,7 +32,7 @@ def __get_pickle():
     filehandler = open('model.obj', 'rb') 
     classifier = pickle.load(filehandler)
 
-def __normalize_port(value):
+def __clean_port(value):
     if value == 'S':
         return 0
     if value == 'C':
@@ -43,21 +43,21 @@ def __normalize_port(value):
         return 3
     raise Exception("Invalid input: port colum | "+str(value))
 
-def __normalize_sex(value):
+def __clean_sex(value):
     if value == 'male':
         return 0
     if value == 'female':
         return 1
     raise Exception("Invalid input: sex colum | "+str(value))
 
-def __normalize_age(value):
+def __clean_age(value):
     if np.isnan(value):
-        return 0
+        return 29
     return value
 
-def __normalize_fare(value):
+def __clean_fare(value):
     if np.isnan(value):
-        return 0
+        return 32.2
     return value
 
 def pre_process(data,train=False):
@@ -66,10 +66,10 @@ def pre_process(data,train=False):
     del X['Ticket']
     del X['Cabin']
     del X['PassengerId']
-    X['Embarked'] = X['Embarked'].apply(__normalize_port)
-    X['Sex'] = X['Sex'].apply(__normalize_sex)
-    X['Age'] = X['Age'].apply(__normalize_age)
-    X['Fare'] = X['Fare'].apply(__normalize_fare)
+    X['Embarked'] = X['Embarked'].apply(__clean_port)
+    X['Sex'] = X['Sex'].apply(__clean_sex)
+    X['Age'] = X['Age'].apply(__clean_age)
+    X['Fare'] = X['Fare'].apply(__clean_fare)
     if train:
         Y = data['Survived']
         del X['Survived']
